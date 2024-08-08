@@ -1,7 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import analytics from '@react-native-firebase/analytics';
+
 
 const { width, height } = Dimensions.get('window');
+
+const logPressEvent = async (description) =>
+  await analytics().logEvent('basket', {
+    id: 234,
+    description: description,
+  })
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -15,7 +23,7 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
       <View style={styles.middleContainer}>
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={[styles.button, styles.button1]} onPress={() => navigation.navigate('FDA')}>
+          <TouchableOpacity style={[styles.button, styles.button1]} onPress={() => {logPressEvent(); navigation.navigate('FDA')}}>
             <Text style={styles.buttonText}>FDA Enforcement</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.button2]} onPress={() => navigation.navigate('K510')}>
